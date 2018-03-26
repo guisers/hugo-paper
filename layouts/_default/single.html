@@ -5,8 +5,9 @@
     <p class="post-meta">
       {{- if or .Params.author .Site.Params.author -}}
       {{ .Params.author | default .Site.Params.author }} · {{ end }}
-      {{- .Date.Format "2006.1.2" -}}
+      {{- .Date.Format "2/1/2006" -}}
     </p>
+    {{ if .Params.draft }}<p class="draft-flag">[DRAFT]</p>{{ end }}
   </header>
   <div class="post-content">{{ .Content }}</div>
   <footer class="post-footer">

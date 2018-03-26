@@ -20,10 +20,20 @@
   <header class="post-header">
     {{ safeHTML (.Scratch.Get `firstEmoji`) }}
     <h2 class="post-title">{{ .Title }}</h2>
+    {{ if .Params.draft }}<p class="draft-flag">[DRAFT]</p>{{ end }}
+    <p class="post-meta">
+      {{- if or .Params.author .Site.Params.author -}}
+      {{ .Params.author | default .Site.Params.author }} · {{ end }}
+      {{- .Date.Format "2/1/2006" -}}
+    </p>
   </header>
   <p class="post-summary">{{ .Summary | plainify | htmlUnescape }}...</p>
   <footer class="post-footer">
-    <p class="post-meta">{{ .Date.Format "2006.1.2" }}</p>
+    <p class="post-meta">
+      {{ range .Params.tags }}
+        <a href="{{ `/tags/` }}{{ . | urlize }}/">#{{ . }}</a>
+      {{ end }}
+    </p>
   </footer>
   <a class="post-link" href="{{ .Permalink }}"></a>
 </article>
